@@ -48,13 +48,15 @@ public class RecipeServiceImpl implements RecipeService {
         ElasticsearchClient esClient = ElasticsearchCreator.getEsClient();
         SearchResponse<Recipe> response = esClient.search(s -> s
                 .index("recipes")
-                .query(q -> q.fuzzy(f -> f.field("name").value(name).fuzziness("AUTO"))
-//                        .match(t -> t
-//                                .field("name")
-//                                .query(name))
+                .query(q -> q
+                        .fuzzy(f -> f
+                                .field("name")
+                                .value(name)
+                                .fuzziness("AUTO")
+                        )
                 ),
-                Recipe.class);
-
+                Recipe.class
+        );
 
         TotalHits total = response.hits().total();
         boolean isExactResult = total.relation() == TotalHitsRelation.Eq;
