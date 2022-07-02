@@ -1,6 +1,9 @@
 package io.github.ahmedkhaledak.fridgefood.services.impl;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch._types.query_dsl.FuzzyQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch._types.query_dsl.QueryBuilders;
 import co.elastic.clients.elasticsearch.core.GetResponse;
 import co.elastic.clients.elasticsearch.core.IndexResponse;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
@@ -45,10 +48,10 @@ public class RecipeServiceImpl implements RecipeService {
         ElasticsearchClient esClient = ElasticsearchCreator.getEsClient();
         SearchResponse<Recipe> response = esClient.search(s -> s
                 .index("recipes")
-                .query(q -> q
-                        .match(t -> t
-                                .field("name")
-                                .query(name))
+                .query(q -> q.fuzzy(f -> f.field("name").value(name).fuzziness("AUTO"))
+//                        .match(t -> t
+//                                .field("name")
+//                                .query(name))
                 ),
                 Recipe.class);
 
