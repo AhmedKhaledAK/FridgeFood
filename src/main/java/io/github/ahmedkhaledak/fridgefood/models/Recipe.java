@@ -1,18 +1,16 @@
 package io.github.ahmedkhaledak.fridgefood.models;
 
+import java.util.List;
+
 public class Recipe {
-    //@Id
+
     private String id;
-    //@Field(type = FieldType.Text, name = "name")
     private String name;
-    //@Field(type = FieldType.Text, name = "description")
     private String description;
-    //@Field(type = FieldType.Double, name = "cookingMinutes")
     private double cookingMinutes;
-   // @Field(type = FieldType.Double, name = "calories")
     private double calories;
-    //@Field(type = FieldType.Double, name = "fats")
     private double fats;
+    private List<String> ingredients;
 
     public String getId() {
         return id;
@@ -60,5 +58,13 @@ public class Recipe {
 
     public void setFats(double fats) {
         this.fats = fats;
+    }
+
+    public List<String> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<String> ingredients) {
+        this.ingredients = ingredients;
     }
 }
